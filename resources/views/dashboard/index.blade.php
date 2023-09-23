@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <a href="Surat/tambah">
+                            <a href="surat/tambah">
                                 <btn class="btn btn-success">Tambah Surat</btn>
                             </a>
 
