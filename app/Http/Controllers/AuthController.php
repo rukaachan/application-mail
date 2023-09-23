@@ -13,7 +13,7 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function login(Request $request)
+    function login(Request $request)
     {
         $validatedData = $request->validate([
             'username' => 'required',
@@ -31,12 +31,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // if ($user->role == 'admin') {
-            //     return redirect('manajemen/user')->with('_token', Session::token());
-            // } elseif ($user->role == 'operator') {
-            //     return redirect('admin/operator')->with('_token', Session::token());
-            // }
-
             if ($user->role == 'admin' || $user->role == 'operator') {
                 return redirect('dashboard/surat')->with('_token', Session::token());
             } 
@@ -45,7 +39,7 @@ class AuthController extends Controller
         return redirect()->back()->withErrors('Terdapat kesalahan Username atau Password')->withInput()->with('_token', Session::token());
     }
 
-    public function logout()
+    function logout()
     {
         Auth::logout();
         Session::regenerateToken();

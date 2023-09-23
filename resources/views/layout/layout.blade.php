@@ -39,21 +39,21 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="dashboard/surat">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('dashboard/surat') }}">Home</a>
                     </li>
                     @if (Auth::check() && Auth::user()->role == 'admin')
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Manage User</a>
+                            <a class="nav-link" href="{{ url('admin/user') }}">Manage User</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Jenis Surat</a>
+                            <a class="nav-link" href="{{ url('jenis/surat') }}">Jenis Surat</a>
                         </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Transaksi Surat</a>
+                        <a class="nav-link" href="{{ url('transaksi/surat') }}">Transaksi Surat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout" tabindex="-1">Logout</a>
+                        <a class="nav-link" href="{{ url('/logout') }}" tabindex="-1">Logout</a>
                     </li>
                 </ul>
                 <form class="d-flex">

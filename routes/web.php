@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JenisSuratController;
+use App\Http\Controllers\TransaksiSuratController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,34 +19,37 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Jika belom login, maka muncul
-// Route::middleware(['guest'])->group(function () {
+Route::middleware(['guest'])->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::post('/', [AuthController::class, 'login']);
-    Route::get('/logout', [AuthController::class, 'logout']);
-// });
+});
 
-// // Jika sudah login, kembali ke dalam halaman ya
+// Jika sudah login, kembali ke dalam halaman ya
 Route::get('/home', function () {
-    return redirect('/admin');
+    return redirect('dashboard/surat');
 });
 
+Route::middleware(['auth'])->group(function () {
 
-// Role and Permission
-// Route::middleware(['auth'])->group(function () {
-//     // Membuat sesi logout
-//     Route::get('/logout', [SessionController::class, 'logout']);
+    // DASHBOARD
+    Route::prefix('dashboard')->middleware(['akses:admin,operator'])->group(function () {
+        Route::get('/surat', [DashboardController::class, 'index']);
+    });
 
-//     // Admin
-//     Route::get('/admin', [AdminController::class, 'index']);
+    // MANAGE USER
+    Route::prefix('admin')->middleware(['akses:admin'])->group(function () {
+        Route::get('/user', [UserController::class, 'index']);
+    });
 
-//     // Route::get('/admin/admin', [UserController::class, 'admin'])->middleware('akses:admin');
-//     Route::get('/admin/operator', [AdminController::class, 'operator'])->middleware('akses:operator');
-// });
+    // MANAGE JENIS SURAT
+    Route::prefix('jenis')->middleware(['akses:admin'])->group(function () {
+        Route::get('/surat', [JenisSuratController::class, 'index']);
+    });
 
-Route::prefix('manajemen')->middleware(['akses:admin'])->group(function () {
-    Route::get('/user',[UserController::class,'admin']);
-});
+    // TRANSAKSI SURAT
+    Route::prefix('transaksi')->middleware(['akses:admin,operator'])->group(function () {
+        Route::get('/surat', [TransaksiSuratController::class, 'index']);
+    });
 
-Route::prefix('dashboard')->middleware(['akses:admin,operator'])->group(function () {
-    Route::get('/surat', [DashboardController::class, 'index']);
+    Route::get('/logout', [AuthController::class, 'logout']);
 });

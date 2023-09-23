@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    function admin()
+    function index()
     {
         
         return view('user.index');
