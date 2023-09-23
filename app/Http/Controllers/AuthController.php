@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class SessionController extends Controller
+class AuthController extends Controller
 {
     function index()
     {
@@ -31,13 +31,15 @@ class SessionController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // dd($user->role);
+            // if ($user->role == 'admin') {
+            //     return redirect('manajemen/user')->with('_token', Session::token());
+            // } elseif ($user->role == 'operator') {
+            //     return redirect('admin/operator')->with('_token', Session::token());
+            // }
 
-            if ($user->role == 'admin') {
-                return redirect('manajemen/user')->with('_token', Session::token());
-            } elseif ($user->role == 'operator') {
-                return redirect('admin/operator')->with('_token', Session::token());
-            }
+            if ($user->role == 'admin' || $user->role == 'operator') {
+                return redirect('dashboard/surat')->with('_token', Session::token());
+            } 
         }
 
         return redirect()->back()->withErrors('Terdapat kesalahan Username atau Password')->withInput()->with('_token', Session::token());

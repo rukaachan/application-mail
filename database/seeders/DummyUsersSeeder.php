@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\TblAkun;
+use App\Models\TblUser;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,7 +28,7 @@ class DummyUsersSeeder extends Seeder
 
         // Melakukan looping data dengan foreach
         foreach ($userData as $user => $val) {
-            TblAkun::create($val);
+            TblUser::create($val);
         }
     }
 }

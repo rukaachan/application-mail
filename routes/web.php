@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\SessionController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,28 +18,33 @@ use Illuminate\Support\Facades\Route;
 
 // Jika belom login, maka muncul
 // Route::middleware(['guest'])->group(function () {
-    Route::get('/', [SessionController::class, 'index'])->name('login');
-    Route::post('/', [SessionController::class, 'login']);
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::post('/', [AuthController::class, 'login']);
+    Route::get('/logout', [AuthController::class, 'logout']);
 // });
 
 // // Jika sudah login, kembali ke dalam halaman ya
-// Route::get('/home', function () {
-//     return redirect('/admin');
-// });
+Route::get('/home', function () {
+    return redirect('/admin');
+});
 
 
 // Role and Permission
-Route::middleware(['auth'])->group(function () {
-    // Membuat sesi logout
-    Route::get('/logout', [SessionController::class, 'logout']);
+// Route::middleware(['auth'])->group(function () {
+//     // Membuat sesi logout
+//     Route::get('/logout', [SessionController::class, 'logout']);
 
-    // Admin
-    Route::get('/admin', [AdminController::class, 'index']);
+//     // Admin
+//     Route::get('/admin', [AdminController::class, 'index']);
 
-    // Route::get('/admin/admin', [UserController::class, 'admin'])->middleware('akses:admin');
-    Route::get('/admin/operator', [AdminController::class, 'operator'])->middleware('akses:operator');
-});
+//     // Route::get('/admin/admin', [UserController::class, 'admin'])->middleware('akses:admin');
+//     Route::get('/admin/operator', [AdminController::class, 'operator'])->middleware('akses:operator');
+// });
 
 Route::prefix('manajemen')->middleware(['akses:admin'])->group(function () {
     Route::get('/user',[UserController::class,'admin']);
+});
+
+Route::prefix('dashboard')->middleware(['akses:admin,operator'])->group(function () {
+    Route::get('/surat', [DashboardController::class, 'index']);
 });
