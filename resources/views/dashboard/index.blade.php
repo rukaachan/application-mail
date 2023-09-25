@@ -29,19 +29,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($Surat as $u)
+                                @foreach ($surat as $s)
                                     <tr>
-                                        <td>{{ $u->Suratname }}</td>
-                                        <td>{{ $u->role }}</td>
+                                        <td>{{ $s->tanggal_surat }}</td>
+                                        <td>{{ $s->ringkasan }}</td>
+                                        <td>{{ $s->file }}</td>
                                         <td>
-                                            <a href="Surat/edit/{{ $u->id_Surat }}">
+                                            <a href="surat/edit/{{ $s->id_surat }}">
                                                 <btn class="btn btn-primary">EDIT</btn>
                                             </a>
-                                            <btn class="btn btn-danger btnHapus" idSurat="{{ $u->id_Surat }}">HAPUS</btn>
+                                            <btn class="btn btn-danger btnHapus" idSurat="{{ $s->id_surat }}">HAPUS</btn>
 
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

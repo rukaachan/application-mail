@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Surat;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -9,9 +10,12 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Surat $surat)
     {
-        return view('dashboard.index');
+        $data = [
+            'surat' => $surat->all()
+        ];
+        return view('dashboard.index', $data);
     }
     /**
      * Show the form for creating a new resource.
@@ -24,7 +28,7 @@ class DashboardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Surat $surat)
     {
         //
     }
@@ -48,7 +52,7 @@ class DashboardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Surat $surat)
     {
         //
     }

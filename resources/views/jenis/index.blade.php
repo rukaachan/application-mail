@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <span class="h1">
-                        Data Jenis
+                        Data Jenis Surat
                     </span>
                 </div>
                 <div class="card-body">
@@ -27,19 +27,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($Jenis as $u)
+                                @foreach ($jenis as $j)
                                     <tr>
-                                        <td>{{ $u->Jenisname }}</td>
-                                        <td>{{ $u->role }}</td>
+                                        <td>{{ $j->jenis_surat }}</td>
                                         <td>
-                                            <a href="Jenis/edit/{{ $u->id_Jenis }}">
+                                            <a href="surat/edit/{{ $j->id_jenis_surat }}">
                                                 <btn class="btn btn-primary">EDIT</btn>
                                             </a>
-                                            <btn class="btn btn-danger btnHapus" idJenis="{{ $u->id_Jenis }}">HAPUS</btn>
+                                            <btn class="btn btn-danger btnHapus" idJenis="{{ $j->id_jenis_surat }}">HAPUS
+                                            </btn>
 
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

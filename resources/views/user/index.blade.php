@@ -28,7 +28,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($user as $u)
+                                @foreach ($user as $u)
                                     <tr>
                                         <td>{{ $u->username }}</td>
                                         <td>{{ $u->role }}</td>
@@ -40,7 +40,7 @@
 
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
