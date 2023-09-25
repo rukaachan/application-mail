@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/surat/tambah', [DashboardController::class, 'create']);
         Route::post('/surat/simpan', [DashboardController::class, 'store']);
         Route::get('/surat/edit/{id}', [DashboardController::class, 'edit']);
-        Route::post('/surat/edit/simpan', [DashboardController::class, 'store']);
+        Route::post('/surat/edit/simpan', [DashboardController::class, 'update']);
         Route::delete('/surat/hapus', [DashboardController::class, 'destroy']);
     });
 
@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/tambah', [UserController::class, 'create']);
         Route::post('/user/simpan', [UserController::class, 'store']);
         Route::get('/user/edit/{id}', [UserController::class, 'edit']);
-        Route::post('/user/edit/simpan', [UserController::class, 'store']);
+        Route::post('/user/edit/simpan', [UserController::class, 'update']);
         Route::delete('/user/hapus', [UserController::class, 'destroy']);
     });
 
@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/surat/tambah', [JenisSuratController::class, 'create']);
         Route::post('/surat/simpan', [JenisSuratController::class, 'store']);
         Route::get('/surat/edit/{id}', [JenisSuratController::class, 'edit']);
-        Route::post('/surat/edit/simpan', [JenisSuratController::class, 'store']);
+        Route::post('/surat/edit/simpan', [JenisSuratController::class, 'update']);
         Route::delete('/surat/hapus', [JenisSuratController::class, 'destroy']);
     });
 
@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/surat/tambah', [TransaksiSuratController::class, 'create']);
         Route::post('/surat/simpan', [TransaksiSuratController::class, 'store']);
         Route::get('/surat/edit/{id}', [TransaksiSuratController::class, 'edit']);
-        Route::post('/surat/edit/simpan', [TransaksiSuratController::class, 'store']);
+        Route::post('/surat/edit/simpan', [TransaksiSuratController::class, 'update']);
         Route::delete('/surat/hapus', [TransaksiSuratController::class, 'destroy']);
     });
 
