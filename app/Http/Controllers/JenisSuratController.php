@@ -31,7 +31,22 @@ class JenisSuratController extends Controller
      */
     public function store(Request $request, JenisSurat $jenis)
     {
-        //
+        $data = $request->validate(
+            [
+                'jenis_surat'    => ['required'],
+            ]
+        );
+
+        //Proses Insert
+        if ($data) {
+            $data['id_jenis_surat'] = 1;
+            // Simpan jika data terisi semua
+            $jenis->create($data);
+            return redirect('jenis/surat')->with('success', 'Data jenis surat baru berhasil ditambah');
+        } else {
+            // Kembali ke form tambah data
+            return back()->with('error', 'Data jenis surat gagal ditambahkan');
+        }
     }
 
     /**
@@ -47,7 +62,11 @@ class JenisSuratController extends Controller
      */
     public function edit(string $id, Request $request, JenisSurat $jenis)
     {
-        return view('jenis.edit');
+        $data = [
+            'jenis' =>  JenisSurat::where('id_jenis_surat', $id)->first()
+        ];
+        
+        return view('jenis.edit', $data);
     }
 
     /**
@@ -55,7 +74,22 @@ class JenisSuratController extends Controller
      */
     public function update(Request $request, JenisSurat $jenis)
     {
-        //
+        $data = $request->validate([
+            'jenis_surat' => ['required'],
+        ]);
+
+        $id_jenis_surat = $request->input('id_jenis_surat');
+
+        if ($id_jenis_surat !== null) {
+            // Process Update
+            $dataUpdate = $jenis->where('id_jenis_surat', $id_jenis_surat)->update($data);
+            
+            if ($dataUpdate) {
+                return redirect('jenis/surat')->with('success', 'Data jenis surat berhasil di update');
+            } else {
+                return back()->with('error', 'Data jenis surat gagal di update');
+            }
+        }
     }
 
     /**
