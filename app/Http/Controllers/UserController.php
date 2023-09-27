@@ -51,7 +51,7 @@ class UserController extends Controller
         } else {
             // Kembali ke form tambah data
             return back()->with('error', 'Data user gagal ditambahkan');
-        }        
+        }
     }
 
     /**
@@ -70,7 +70,7 @@ class UserController extends Controller
         $data = [
             'user' =>  TblUser::select('id_user', 'username', 'role')->where('id_user', $id)->first()
         ];
-        
+
         return view('user.edit', $data);
         // return view('user.edit');
     }
@@ -106,8 +106,27 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(TblUser $user, Request $request)
     {
-        //
+        $id_user = $request->input('id_user');
+
+        // Hapus 
+        $aksi = $user->where('id_user', $id_user)->delete();
+
+        if ($aksi) {
+            // Pesan Berhasil
+            $pesan = [
+                'success' => true,
+                'pesan'   => 'Data user berhasil dihapus'
+            ];
+        } else {
+            // Pesan Gagal
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Data gagal dihapus'
+            ];
+        }
+
+        return response()->json($pesan);
     }
 }

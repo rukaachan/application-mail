@@ -12,4 +12,9 @@ class JenisSurat extends Model
     protected $fillable = ['jenis_surat'];
     protected $primaryKey = 'id_jenis_surat';
     public $timestamps = false;
+
+    public function surats()
+    {
+        return $this->hasMany(Surat::class, 'id_jenis_surat');
+    }
 }

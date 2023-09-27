@@ -11,8 +11,13 @@ class TblUser extends Authenticatable
     protected $table = 'tbl_user';
     protected $fillable = ['username', 'password', 'role'];
     protected $primaryKey = 'id_user';
+    public $timestamps = false;
     protected $casts = [
         'password' => 'hashed',
     ];
-    public $timestamps = false;
+
+    public function surats()
+    {
+        return $this->hasMany(Surat::class, 'id_user');
+    }
 }

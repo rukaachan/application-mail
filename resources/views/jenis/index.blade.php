@@ -51,3 +51,44 @@
         </div>
     </div>
 @endsection
+
+@section('footer')
+    <script type="module">
+        $('.DataTable tbody').on('click', '.btnHapus', function(a) {
+            a.preventDefault();
+            let idJenis = $(this).closest('.btnHapus').attr('idJenis');
+            swal.fire({
+                title: "Apakah anda ingin menghapus data ini?",
+                showCancelButton: true,
+                confirmButtonText: 'Setuju',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'red'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Ajax Delete
+                    $.ajax({
+                        type: 'DELETE',
+                        url: 'surat/hapus',
+                        data: {
+                            id_jenis_surat: idJenis,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                swal.fire('Berhasil di hapus!', '', 'success').then(function() {
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        $(document).ready(function() {
+            $('.DataTable').DataTable();
+        });
+    </script>
+
+@endsection

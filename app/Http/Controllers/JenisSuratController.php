@@ -65,7 +65,7 @@ class JenisSuratController extends Controller
         $data = [
             'jenis' =>  JenisSurat::where('id_jenis_surat', $id)->first()
         ];
-        
+
         return view('jenis.edit', $data);
     }
 
@@ -83,7 +83,7 @@ class JenisSuratController extends Controller
         if ($id_jenis_surat !== null) {
             // Process Update
             $dataUpdate = $jenis->where('id_jenis_surat', $id_jenis_surat)->update($data);
-            
+
             if ($dataUpdate) {
                 return redirect('jenis/surat')->with('success', 'Data jenis surat berhasil di update');
             } else {
@@ -95,8 +95,27 @@ class JenisSuratController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(JenisSurat $jenis, Request $request)
     {
-        //
+        $id_jenis_surat = $request->input('id_jenis_surat');
+
+        // Hapus 
+        $aksi = $jenis->where('id_jenis_surat', $id_jenis_surat)->delete();
+
+        if ($aksi) {
+            // Pesan Berhasil
+            $pesan = [
+                'success' => true,
+                'pesan'   => 'Data jenis surat berhasil dihapus'
+            ];
+        } else {
+            // Pesan Gagal
+            $pesan = [
+                'success' => false,
+                'pesan'   => 'Data gagal dihapus'
+            ];
+        }
+
+        return response()->json($pesan);
     }
 }
