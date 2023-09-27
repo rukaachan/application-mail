@@ -23,6 +23,7 @@
                             <thead>
                                 <tr>
                                     <th>TANGGAL SURAT</th>
+                                    <th>JENIS SURAT</th>
                                     <th>RINGKASAN</th>
                                     <th>FOTO SURAT</th>
                                     <th>AKSI</th>
@@ -32,14 +33,19 @@
                                 @foreach ($surat as $s)
                                     <tr>
                                         <td>{{ $s->tanggal_surat }}</td>
+                                        <td>{{ $s->jenis_surat }}</td>
                                         <td>{{ $s->ringkasan }}</td>
-                                        <td>{{ $s->file }}</td>
+                                        <td>
+                                            @if ($s->file)
+                                                <img src="{{ url('foto') . '/' . $s->file }} "
+                                                    style="max-width: 250px; height: auto;" />
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="surat/edit/{{ $s->id_surat }}">
                                                 <btn class="btn btn-primary">EDIT</btn>
                                             </a>
                                             <btn class="btn btn-danger btnHapus" idSurat="{{ $s->id_surat }}">HAPUS</btn>
-
                                         </td>
                                     </tr>
                                 @endforeach

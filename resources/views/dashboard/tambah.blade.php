@@ -15,8 +15,17 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Tanggal Surat</label>
-                                    <input type="time" class="form-control" name="tanggal_surat" />
+                                    <input type="datetime-local" class="form-control" name="tanggal_surat" />
                                     @csrf
+                                </div>
+                                <div class="form-group">
+                                    <label>Jenis Surat</label>
+                                    <select name="id_jenis_surat" class="form-control">
+                                        @foreach ($jenisSuratRecords as $jenisSurat)
+                                            <option value="{{ $jenisSurat->id_jenis_surat }}">{{ $jenisSurat->jenis_surat }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Ringkasan</label>
