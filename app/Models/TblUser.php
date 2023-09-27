@@ -15,9 +15,4 @@ class TblUser extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
-
-    public function surats()
-    {
-        return $this->hasMany(Surat::class, 'id_user');
-    }
 }

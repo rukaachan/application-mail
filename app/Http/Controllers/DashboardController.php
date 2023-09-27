@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function index(Surat $surat)
     {
         $data = [
-            'surat' => $surat->with('jenis')->get()
+            'surat' => $surat->all()
         ];
 
         // dd($data);
@@ -28,51 +28,12 @@ class DashboardController extends Controller
      */
     public function create(JenisSurat $jenis)
     {
-        $jenisSuratRecords = $jenis->all();
-
-        return view('dashboard.tambah', [
-            'jenisSuratRecords' => $jenisSuratRecords,
-        ]);
+        return view('dashboard.tambah');
     }
 
     public function store(Request $request, Surat $surat)
     {
-        try {
-            // Validate your request data
-            $data = $request->validate([
-                'tanggal_surat' => ['required'],
-                'ringkasan' => ['required'],
-                'id_jenis_surat' => ['required'],
-                'file' => ['required']
-            ]);
-
-
-            $user = Auth::user();
-
-            // dd(Auth::user()->id_user);
-            $data['id_user'] = $user->id_user;
-
-            if ($request->hasFile('file')) {
-                $foto_file = $request->file('file');
-                $foto_ekstensi = $foto_file->getClientOriginalExtension();
-                $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_ekstensi;
-
-                $foto_file->move(public_path('foto'), $foto_nama);
-
-                $data['file'] = $foto_nama;
-            }
-
-            // Create a new Surat instance and save it
-            if ($surat->create($data)) {
-                return redirect('/dashboard/surat')->with('success', 'Data surat baru berhasil ditambah');
-            } else {
-                return back()->with('error', 'Data surat gagal ditambahkan');
-            }
-        } catch (\Exception $e) {
-            dd($e);
-            // dd($data);
-            // return back()->with('error', 'Terjadi kesalahan. Silakan coba lagi.');
-        }
+        //
     }
 
 
