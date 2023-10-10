@@ -24,7 +24,7 @@ class Surat extends Model
     // One to Many
     public function user()
     {
-        return $this->belongsTo(TblUser::class, 'id_user');
+        return $this->belongsTo(TblUser::class);
     }
 
     // Get Attribute column
@@ -32,4 +32,10 @@ class Surat extends Model
     {
         return JenisSurat::find($this->attributes['id_jenis_surat'])->jenis_surat;
     }
+
+    public function getUsernameAttribute()
+    {
+        return TblUser::find($this->attributes['id_user'])->username;
+    }
+    
 };

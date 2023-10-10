@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Logs;
 use Illuminate\Http\Request;
 
 class TransaksiSuratController extends Controller
@@ -9,9 +10,13 @@ class TransaksiSuratController extends Controller
     /**
      * Display a listing of the resource.
      */
-    function index()
+    function index(Logs $logs)
     {
-        return view('transaksi.index');
+        $data = [
+            'transaksi' => $logs::all()
+        ];
+
+        return view('transaksi.index', $data);
     }
     /**
      * Show the form for creating a new resource.

@@ -19,7 +19,6 @@ class DashboardController extends Controller
             'surat' => $surat->with('jenis')->get()
         ];
 
-        // dd($data);
         return view('dashboard.index', $data);
     }
 
@@ -115,7 +114,7 @@ class DashboardController extends Controller
             $dataUpdate = $surat->where('id_surat', $id_surat)->update($data);
 
             if ($dataUpdate) {
-                return redirect('dashboard/surat')->with('success', 'Data jenis surat berhasil diupdate');
+                return redirect('dashboard/surat')->with('success', 'Data surat berhasil diupdate');
             }
 
             return back()->with('error', 'Data jenis surat gagal diupdate');

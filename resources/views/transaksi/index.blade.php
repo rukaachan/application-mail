@@ -6,48 +6,32 @@
             <div class="card">
                 <div class="card-header">
                     <span class="h1">
-                        Data Transaksi
+                        Data Transaksi Surat
                     </span>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
-                            <a href="surat/tambah">
-                                <btn class="btn btn-success">Tambah Transaksi</btn>
-                            </a>
-
-                        </div>
-                        <p>
-                            <hr>
-                        <table class="table table-hover table-bordered DataTable">
-                            <thead>
-                                <tr>
-                                    <th>TRANSAKSI</th>
-                                    <th>AKSI</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @foreach ($Transaksi as $u)
+                        <div class="col-12">
+                            <table class="table table-hover table-bordered DataTable">
+                                <thead>
                                     <tr>
-                                        <td>{{ $u->Transaksiname }}</td>
-                                        <td>{{ $u->role }}</td>
-                                        <td>
-                                            <a href="Transaksi/edit/{{ $u->id_Transaksi }}">
-                                                <btn class="btn btn-primary">EDIT</btn>
-                                            </a>
-                                            <btn class="btn btn-danger btnHapus" idTransaksi="{{ $u->id_Transaksi }}">HAPUS</btn>
-
-                                        </td>
+                                        <th>TRANSAKSI SURAT</th>
                                     </tr>
-                                @endforeach --}}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($transaksi as $tx)
+                                        <tr>
+                                            <td>{{ $tx->logs }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <div class="card-footer">
+                    <div class="card-footer">
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection
