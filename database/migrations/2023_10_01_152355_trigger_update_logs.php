@@ -28,7 +28,7 @@ return new class extends Migration
         WHERE id_surat = NEW.id_surat;
         
         -- Inisialisasi pesan log
-        SET @message = CONCAT("Surat dengan id: ", surat_id, " telah diupdate. Perubahan:");
+        SET @message = CONCAT("Surat dengan nomor id: ", surat_id, " telah diupdate. Perubahan:");
 
         -- Inisialisasi pesan userId
         SET @pesan = CONCAT(". Oleh user: ", (SELECT username FROM tbl_user WHERE id_user = OLD.id_user));

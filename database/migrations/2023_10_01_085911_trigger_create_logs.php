@@ -25,7 +25,7 @@ return new class extends Migration
         SELECT username INTO userid FROM tbl_user WHERE id_user = NEW.id_user;
         
         SELECT id_surat INTO surat_id FROM surat WHERE id_surat = NEW.id_surat;
-        INSERT INTO logs (logs) VALUES (CONCAT("Surat telah ditambahkan dengan id: ", surat_id, ". Oleh ", userid));
+        INSERT INTO logs (logs) VALUES (CONCAT("Surat telah ditambahkan nomor id: ", surat_id, ". Oleh ", userid));
     END'
         );
     }

@@ -22,6 +22,7 @@
                         <table class="table table-hover table-bordered DataTable">
                             <thead>
                                 <tr>
+                                    <th>NO</th>
                                     <th>PEMBUAT</th>
                                     <th>TANGGAL SURAT</th>
                                     <th>JENIS SURAT</th>
@@ -33,6 +34,7 @@
                             <tbody>
                                 @foreach ($surat as $s)
                                     <tr>
+                                        <td>{{ $s->id_surat }}</td>
                                         <td>{{ $s->username }}</td>
                                         <td>{{ $s->tanggal_surat }}</td>
                                         <td>{{ $s->jenis_surat }}</td>

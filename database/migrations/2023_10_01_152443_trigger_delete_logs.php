@@ -22,7 +22,7 @@ return new class extends Migration
                 DECLARE userid VARCHAR(200);
                 SELECT username INTO userid FROM tbl_user WHERE id_user = OLD.id_user;
 
-                INSERT INTO logs (logs) VALUES (CONCAT("Surat telah dihapus pada id: ", OLD.id_surat, ". Oleh ", userid));
+                INSERT INTO logs (logs) VALUES (CONCAT("Surat telah dihapus pada nomor id: ", OLD.id_surat, ". Oleh ", userid));
             END'
         );
     }
