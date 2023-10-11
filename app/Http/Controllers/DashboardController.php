@@ -134,11 +134,11 @@ class DashboardController extends Controller
         }
 
         $filePath = public_path('foto') . '/' . $data->file;
-
+        
         if (file_exists($filePath) && unlink($filePath)) {
             $data->delete();
             return response()->json(['success' => true]);
-        }
+        } 
 
         return response()->json(['success' => false, 'pesan' => 'Data gagal dihapus']);
     }

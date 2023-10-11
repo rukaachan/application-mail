@@ -15,12 +15,18 @@
                             <table class="table table-hover table-bordered DataTable">
                                 <thead>
                                     <tr>
+                                        <th>
+                                            <input type="checkbox" name="selectedAll">
+                                        </th>
                                         <th>TRANSAKSI SURAT</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($transaksi as $tx)
                                         <tr>
+                                            <td>
+                                                <input type="checkbox" name="selected">
+                                            </td>
                                             <td>{{ $tx->logs }}</td>
                                         </tr>
                                     @endforeach
