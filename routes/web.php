@@ -64,11 +64,7 @@ Route::middleware(['auth'])->group(function () {
     // TRANSAKSI SURAT
     Route::prefix('transaksi')->middleware(['akses:admin,operator'])->group(function () {
         Route::get('/surat', [TransaksiSuratController::class, 'index']);
-        Route::get('/surat/tambah', [TransaksiSuratController::class, 'create']);
-        Route::post('/surat/simpan', [TransaksiSuratController::class, 'store']);
-        Route::get('/surat/edit/{id}', [TransaksiSuratController::class, 'edit']);
-        Route::post('/surat/edit/simpan', [TransaksiSuratController::class, 'update']);
-        Route::delete('/surat/hapus', [TransaksiSuratController::class, 'destroy']);
+        Route::post('/surat/hapus', [TransaksiSuratController::class, 'destroy']);
     });
 
     Route::get('/logout', [AuthController::class, 'logout']);

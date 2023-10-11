@@ -62,8 +62,16 @@ class TransaksiSuratController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $id_logs = $request->input('id_logs');
+        // dd($id_logs);
+        
+        if ($id_logs != null) {
+            foreach ($id_logs as $id) {
+                Logs::where('id_logs', $id)->delete();
+            }
+        }
+        return redirect()->to('/transaksi/surat')->with('success', 'Data berhasil dihapus');
     }
 }

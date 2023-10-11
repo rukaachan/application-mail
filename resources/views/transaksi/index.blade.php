@@ -10,34 +10,49 @@
                     </span>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <table class="table table-hover table-bordered DataTable">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <input type="checkbox" name="selectedAll">
-                                        </th>
-                                        <th>TRANSAKSI SURAT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($transaksi as $tx)
+                    <form action="surat/hapus" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-warning" type="button" id="checkAll">Select Semua</button>
+                                <button class="btn btn-danger" type="submit">Hapus</button>
+                                <table class="table table-hover table-bordered DataTable mt-2">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" name="selected">
-                                            </td>
-                                            <td>{{ $tx->logs }}</td>
+                                            <th>TRANSAKSI SURAT</th>
+                                            <th>Hapus</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="card-footer">
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($transaksi as $tx)
+                                            <tr>
+                                                <td>{{ $tx->logs }}</td>
+                                                <td>
+                                                    <input type="checkbox" class="checkbox" name="id_logs[]"
+                                                        value="{{ $tx->id_logs }}">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                    </form>
+                </div>
+                <div class="card-footer">
 
-                    </div>
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
+
+@section('footer')
+    <script>
+        document.getElementById('checkAll').addEventListener('click', function() {
+            var checkbox = document.querySelectorAll('.checkbox');
+            for (var i = 0; i < checkbox.length; i++) {
+                checkbox[i].checked = !checkbox[i].checked;
+            }
+        })
+    </script>
+@endsection
