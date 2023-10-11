@@ -13,11 +13,12 @@ class TransaksiSuratController extends Controller
     function index(Logs $logs)
     {
         $data = [
-            'transaksi' => $logs::all()
+            'transaksi' => $logs::orderBy('id_logs', 'desc')->get()
         ];
 
         return view('transaksi.index', $data);
     }
+
     /**
      * Show the form for creating a new resource.
      */

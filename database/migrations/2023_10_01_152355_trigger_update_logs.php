@@ -21,41 +21,40 @@ return new class extends Migration
     BEGIN
         DECLARE surat_id INT;
         DECLARE perubahan VARCHAR(255);
+        DECLARE update_message TEXT;  -- Store the update message separately
         
         -- Ambil ID surat yang diupdate
-        SELECT id_surat INTO surat_id
-        FROM surat
-        WHERE id_surat = NEW.id_surat;
-        
-        -- Inisialisasi pesan log
-        SET @message = CONCAT("Surat dengan nomor id: ", surat_id, " telah diupdate. Perubahan:");
+        SELECT id_surat INTO surat_id FROM surat WHERE id_surat = NEW.id_surat;
 
-        -- Inisialisasi pesan userId
-        SET @pesan = CONCAT(". Oleh user: ", (SELECT username FROM tbl_user WHERE id_user = OLD.id_user));
-        
+        -- Inisialisasi pesan log
+        SET update_message = CONCAT("Surat dengan nomor id: ", surat_id, " telah diupdate. Perubahan:");
+
         -- Periksa perubahan pada jenis_surat
         IF OLD.id_jenis_surat != NEW.id_jenis_surat THEN
             SET perubahan = CONCAT("jenis surat dari ", (SELECT jenis_surat FROM jenis_surat WHERE id_jenis_surat = OLD.id_jenis_surat), " ke ", (SELECT jenis_surat FROM jenis_surat WHERE id_jenis_surat = NEW.id_jenis_surat));
-            SET @message = CONCAT(@message, " ", perubahan, @pesan);
+            SET update_message = CONCAT(update_message, " ", perubahan);
         END IF;
         
         -- Periksa perubahan pada tanggal_surat
         IF OLD.tanggal_surat != NEW.tanggal_surat THEN
-            SET @message = CONCAT(@message, " tanggal surat dari ", OLD.tanggal_surat, " ke ", NEW.tanggal_surat, @pesan);
+            SET update_message = CONCAT(update_message, " tanggal surat dari ", OLD.tanggal_surat, " ke ", NEW.tanggal_surat);
         END IF;
         
         -- Periksa perubahan pada ringkasan
         IF OLD.ringkasan != NEW.ringkasan THEN
-            SET @message = CONCAT(@message, " ringkasan dari ", OLD.ringkasan, " ke ", NEW.ringkasan, @pesan);
+            SET update_message = CONCAT(update_message, " ringkasan dari ", OLD.ringkasan, " ke ", NEW.ringkasan);
         END IF;
         
         -- Periksa perubahan pada file
         IF OLD.file != NEW.file THEN
-            SET @message = CONCAT(@message, " file ", @pesan);
+            SET update_message = CONCAT(update_message, " file");
         END IF;
         
+        -- Add user information to the end of the message
+        SET update_message = CONCAT(update_message, " Oleh user: ", (SELECT username FROM tbl_user WHERE id_user = OLD.id_user));
+
         -- Insert pesan log ke dalam tabel logs
-        INSERT INTO logs (logs) VALUES (@message);
+        INSERT INTO logs (logs) VALUES (update_message);
     END'
         );
     }
