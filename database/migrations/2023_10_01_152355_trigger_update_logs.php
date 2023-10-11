@@ -51,7 +51,7 @@ return new class extends Migration
         END IF;
         
         -- Add user information to the end of the message
-        SET update_message = CONCAT(update_message, " Oleh user: ", (SELECT username FROM tbl_user WHERE id_user = OLD.id_user));
+        SET update_message = CONCAT(update_message, " Oleh: ", (SELECT username FROM tbl_user WHERE id_user = OLD.id_user));
 
         -- Insert pesan log ke dalam tabel logs
         INSERT INTO logs (logs) VALUES (update_message);
